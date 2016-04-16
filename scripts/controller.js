@@ -39,7 +39,6 @@ app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $
 			alert("The provided country code is not valid");
 			return false;
 		}
-
 		$scope.days = [];
 		$scope.currentDay = null;
 		$scope.currentMonthAndYear = null;
@@ -49,13 +48,47 @@ app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $
 	 		if($scope.currentMonthAndYear === null){
 	 			$scope.currentMonthAndYear = {"m":$scope.currentDay.getMonth(),"y":$scope.currentDay.getFullYear()};
 	 		};
-	 		$scope.days.push({"date":$scope.currentDay,"class":"weekday"});
+	 		$scope.days.push({"date":$scope.currentDay,
+	 						  "weekday": $scope.currentDay.getDay(),
+	 						  "class":$scope.getDayClass($scope.currentDay.getDay())});
 	 	};
-
-	 	console.log($scope.days);
-
-
+	 	$scope.splitToMonths();
 	};
+
+	$scope.getDayClass = function(day){
+		if(day === 0 || day === 6){
+			return "weekend";
+		} else {
+			return "weekday";
+		}
+	}
+
+	//Separete on multiple calendars
+	$scope.splitToMonths = function(){
+		$scope.calendars = [];
+		$scope.calendarIndex = 0;
+		$.map($scope.days, function(day, i) {
+          if($scope.calendars.length === 0){
+          	$scope.calendars.push({"calendar":[]});
+          };
+          	if(day.date.getMonth() === $scope.currentMonthAndYear.m  && day.date.getFullYear() === $scope.currentMonthAndYear.y ){
+          		//If the day is in the current calendar block
+          		$scope.calendars[$scope.calendarIndex].calendar.push(day);
+          		$scope.calendars[$scope.calendarIndex].title = day.date;
+          	} else {
+          		//If the day is in a new calendar block
+          		$scope.currentMonthAndYear = {"m":day.date.getMonth(),"y":day.date.getFullYear()};
+          		$scope.calendarIndex++;
+          		$scope.calendars.push({"calendar":[]});
+          		$scope.calendars[$scope.calendarIndex].calendar.push(day);
+          		$scope.calendars[$scope.calendarIndex].title = day.date;
+          	}
+        });
+        console.log($scope.calendars);
+	};
+
+
+
 
 });
 Date.prototype.addDays = function(days) {

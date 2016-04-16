@@ -41,7 +41,6 @@
 	position: relative;
 	box-sizing: border-box;
 }
-
 .center .calendar .days{
 	width: 100%;
 	height: auto;
@@ -59,3 +58,7 @@
     padding-top: 28px;
     height: 71px;
 }
+.weekday{
+	background-color: #DBFFB1 !important;
+}
+
