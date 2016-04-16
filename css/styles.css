@@ -19,11 +19,13 @@
 	padding-left: 5px;
 	padding-right: 5px;
 	padding-top: 2px;
-	border: solid 1px red;
 	box-sizing: border-box;
 	position: relative;
 	text-align: center;
 	font-size: 20px;
+}
+.center .calendar .header{
+	background-color: #EBF3EB;
 }
 .center .form input{
 	width: 100px;
@@ -60,5 +62,15 @@
 }
 .weekday{
 	background-color: #DBFFB1 !important;
+	font-weight: bold;
 }
-
+.weekend{
+	background-color: #F5F578 !important;
+	font-weight: bold;
+}
+.noCalendar{
+	width: 100%;
+	text-align: center;
+	margin-top: 100px;
+	position: relative;
+}

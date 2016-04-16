@@ -2,7 +2,7 @@ var app = angular.module('myCalendar', []);
 app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $http){
 	
 	//User information
-	$scope.inputDate = "08/03/1987";
+	$scope.inputDate = "08/03/2008";
 	$scope.inputDays = 50;
 	$scope.inputCountry = "US";
 
@@ -54,7 +54,6 @@ app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $
 	 	};
 	 	$scope.splitToMonths();
 	};
-
 	$scope.getDayClass = function(day){
 		if(day === 0 || day === 6){
 			return "weekend";
@@ -62,7 +61,6 @@ app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $
 			return "weekday";
 		}
 	}
-
 	//Separete on multiple calendars
 	$scope.splitToMonths = function(){
 		$scope.calendars = [];
@@ -84,11 +82,25 @@ app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $
           		$scope.calendars[$scope.calendarIndex].title = day.date;
           	}
         });
-        console.log($scope.calendars);
+        $scope.addHiddenSpaces();
 	};
-
-
-
+	$scope.addHiddenSpaces = function(){
+		$.map($scope.calendars, function(data, i) {
+			var firstDayOfWeek = data.calendar[0].date.getDay(),
+				lastDayOfWeek = data.calendar[data.calendar.length-1].date.getDay();
+	 		if(firstDayOfWeek > 0){
+				for(var j=0,l=firstDayOfWeek;j<l;j++){
+					data.calendar.unshift({"date":null,"class":"hidden"});
+				};
+	 		};
+	 		if(lastDayOfWeek < 6){
+				for(var j=0,l=6 - lastDayOfWeek;j<l;j++){
+					data.calendar.push({"date":null,"class":"hidden"});
+				};
+	 		};
+		});
+		
+	};
 
 });
 Date.prototype.addDays = function(days) {

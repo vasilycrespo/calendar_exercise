@@ -17,8 +17,8 @@
         <button ng-click="generateCalendar()">View</button>
       </div>
 
-      <div class="calendar">
-        <div class="weekdays">
+      <div class="calendar" ng-repeat="data in calendars">
+        <div class="weekdays" ng-if="$index === 0">
           <div class="wd">S</div>
           <div class="wd">M</div>
           <div class="wd">T</div>
@@ -28,15 +28,17 @@
           <div class="wd">S</div>
         </div>
         <div class="header form">
-          Header
+          {{ data.title | date:'MMMM yyyy' }}
         </div>
         <div class="days">
-          <div class="wd {{ day.class}} " ng-repeat="day in days">
+          <div class="wd {{ day.class}} " ng-repeat="day in data.calendar">
             <span ng-if="day.date">{{ day.date | date:'dd' }}</span>
           </div>
           <div style="clear: both;"></div>
         </div>
       </div>
+
+      <div class="noCalendar" ng-hide="calendars"><h3>Please use the search form the generate a new calendar</h3></div>
 
     </div>
   </div>
