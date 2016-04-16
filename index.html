@@ -16,6 +16,28 @@
         <input ng-model="inputCountry" type="text" placeholder="Country Code"></input>
         <button ng-click="generateCalendar()">View</button>
       </div>
+
+      <div class="calendar">
+        <div class="weekdays">
+          <div class="wd">S</div>
+          <div class="wd">M</div>
+          <div class="wd">T</div>
+          <div class="wd">W</div>
+          <div class="wd">T</div>
+          <div class="wd">F</div>
+          <div class="wd">S</div>
+        </div>
+        <div class="header form">
+          Header
+        </div>
+        <div class="days">
+          <div class="wd {{ day.class}} " ng-repeat="day in days">
+            <span ng-if="day.date">{{ day.date | date:'dd' }}</span>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 

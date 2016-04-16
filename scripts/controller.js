@@ -2,10 +2,11 @@ var app = angular.module('myCalendar', []);
 app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $http){
 	
 	//User information
-	$scope.inputDate = null;
-	$scope.inputDays = null;
-	$scope.inputCountry = null;
+	$scope.inputDate = "08/03/1987";
+	$scope.inputDays = 50;
+	$scope.inputCountry = "US";
 
+	//General functions
 	$scope.generateCalendar = function(){
 	
 		//Some Validations
@@ -39,7 +40,25 @@ app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $
 			return false;
 		}
 
+		$scope.days = [];
+		$scope.currentDay = null;
+		$scope.currentMonthAndYear = null;
+		//I need to generate an array containing all the days i wanna show on the calendar.
+	 	for(var i=0,k=$scope.numberOfDays;i<k;i++) {
+	 		$scope.currentDay = new Date($scope.userDate.y,$scope.userDate.m,$scope.userDate.d).addDays(i);
+	 		if($scope.currentMonthAndYear === null){
+	 			$scope.currentMonthAndYear = {"m":$scope.currentDay.getMonth(),"y":$scope.currentDay.getFullYear()};
+	 		};
+	 		$scope.days.push({"date":$scope.currentDay,"class":"weekday"});
+	 	};
+
+	 	console.log($scope.days);
+
 
 	};
 
 });
+Date.prototype.addDays = function(days) {
+    this.setDate(this.getDate()+parseInt(days));
+    return this;
+};
