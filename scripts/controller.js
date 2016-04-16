@@ -1,5 +1,5 @@
 var app = angular.module('myCalendar', []);
-app.controller("calendarCtrl", function($scope, $http){
+app.controller("calendarCtrl", function($scope, $http, $timeout){
 	//User information
 	$scope.inputDate = "12/03/2008";
 	$scope.inputDays = 50;
@@ -19,25 +19,27 @@ app.controller("calendarCtrl", function($scope, $http){
 			$scope.endDate = null;
 			$scope.currentMonth = null;
 		}else { 
-			alert("The date is not valid");
+			$scope.errormsg = "The date is not valid";
+			$timeout( function(){ $scope.errormsg = undefined; }, 5000);
 			return false;
 		};
-
 		//Is a proper number for days
 		var isNumber = /^[\d]+$/ig.test($scope.inputDays);
 		if(isNumber){
 			$scope.numberOfDays = parseInt($scope.inputDays);
 		}else { 
-			alert("The provided days is not valid");
+			$scope.errormsg = "The provided days is not valid";
+			$timeout( function(){ $scope.errormsg = undefined; }, 5000);
 			return false;
 		};
-
 		//Is a proper country code
 		var isCountrycode = /^[A-Za-z]{2}$/ig.test($scope.inputCountry);
 		if(!isCountrycode){
-			alert("The provided country code is not valid");
+			$scope.errormsg = "The provided country code is not valid";
+			$timeout( function(){ $scope.errormsg = undefined; }, 5000);
 			return false;
 		}
+		$scope.errormsg = undefined;
 		$scope.days = [];
 		$scope.currentDay = null;
 		$scope.currentMonthAndYear = null;

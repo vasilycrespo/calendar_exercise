@@ -17,11 +17,13 @@
   <div class="container">
 
     <div class="center">
+      <h4>Search a day:</h4>
       <div class="form">
         <input ng-model="inputDate" type="text" placeholder="mm/dd/yyyy" ></input>
         <input ng-model="inputDays" type="text" placeholder="Number of days"></input>
         <input ng-model="inputCountry" type="text" placeholder="Country Code"></input>
         <button ng-click="generateCalendar()">View</button>
+        <div ng-show="errormsg" style="margin-top: 6px;"><span class="errorbox">{{ errormsg }}</span></div>
       </div>
 
       <div class="calendar" ng-repeat="data in calendars">
@@ -45,7 +47,7 @@
         </div>
       </div>
 
-      <div class="noCalendar" ng-hide="calendars"><h3>Please use the search form the generate a new calendar</h3></div>
+      <div class="noCalendar" ng-hide="calendars"><h4>Please use the search form the generate a new calendar</h4></div>
 
     </div>
   </div>

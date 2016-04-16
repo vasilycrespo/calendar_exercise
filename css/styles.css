@@ -5,6 +5,7 @@
 }
 .center{
 	width: 500px;
+	text-align: center;
 	height: auto;
 	min-height: 200px;
 	margin-top: 100px;
@@ -95,4 +96,8 @@
     -webkit-box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.75);
     -moz-box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.75);
     box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.75);
+}
+.errorbox{
+	font-size: 14px;
+	color: #EF4A4A;
 }
