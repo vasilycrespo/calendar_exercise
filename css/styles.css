@@ -68,6 +68,11 @@
 	background-color: #F5F578 !important;
 	font-weight: bold;
 }
+.holiday{
+	background-color: #FFC760 !important;
+	font-weight: bold;
+	cursor: pointer;
+}
 .noCalendar{
 	width: 100%;
 	text-align: center;
