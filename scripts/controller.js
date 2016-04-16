@@ -1,9 +1,9 @@
 var app = angular.module('myCalendar', []);
 app.controller("calendarCtrl", function($scope, $http, $timeout){
 	//User information
-	$scope.inputDate = "12/03/2008";
-	$scope.inputDays = 50;
-	$scope.inputCountry = "US";
+	$scope.inputDate =  null;
+	$scope.inputDays = null;
+	$scope.inputCountry = null;
 
 	//General functions
 	$scope.generateCalendar = function(){
