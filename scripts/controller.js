@@ -1,8 +1,7 @@
 var app = angular.module('myCalendar', []);
-app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $http){
-	
+app.controller("calendarCtrl", function($scope, $http){
 	//User information
-	$scope.inputDate = "08/03/2008";
+	$scope.inputDate = "12/03/2008";
 	$scope.inputDays = 50;
 	$scope.inputCountry = "US";
 
@@ -15,7 +14,7 @@ app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $
 		var isDate = /^[\d]{1,2}\/[\d]{1,2}\/[\d]{4}$/ig.test($scope.inputDate);
 		if(isDate){
 			var group = /^([\d]{1,2})\/([\d]{1,2})\/([\d]{4})$/ig.exec($scope.inputDate);
-			$scope.userDate = {"d":group[2],"m":group[1],"y":group[3]};
+			$scope.userDate = {"d":group[2],"m":parseInt(group[1])-1,"y":group[3]};
 			$scope.startDate = new Date($scope.userDate.y,$scope.userDate.m,$scope.userDate.d);
 			$scope.endDate = null;
 			$scope.currentMonth = null;
@@ -99,8 +98,43 @@ app.controller("calendarCtrl", function($scope, $timeout, $interval, $animate, $
 				};
 	 		};
 		});
-		
+		$scope.findHoliday();
 	};
+
+	$scope.findHoliday = function(){
+		if($scope.startDate.getFullYear() === 2008){
+
+		$.map($scope.calendars, function(data, i) {
+			$.map(data.calendar, function(days, k) {
+				if(days.date !== null){
+					console.log(days.date);
+					console.log($scope.holidayapiFormatDate(days.date));
+				};
+			});
+		});
+
+			return false;
+			$http({
+			  method: 'GET',
+			  url: 'http://holidayapi.com/v1/holidays?country='+$scope.inputCountry+'&year=2008'
+			}).then(function successCallback(response) {
+			   if(response){
+			   	 console.log(response.data.holidays);
+			   }
+			}, function errorCallback(response) {
+			   alert("An error ocurred when conecting to the holidayapi, maybe the provided country code is wrong or not supported");
+			});
+		};
+	};
+
+	$scope.holidayapiFormatDate = function(date){
+		var month = parseInt(date.getMonth())+1,
+		    newdate = date.getFullYear() +'-'+ month +'-'+ date.getDate();
+		return newdate;
+	};
+
+
+
 
 });
 Date.prototype.addDays = function(days) {
