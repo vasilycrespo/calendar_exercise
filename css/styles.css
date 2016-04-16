@@ -79,3 +79,20 @@
 	margin-top: 100px;
 	position: relative;
 }
+.holidaybox{
+	width: 240px;
+	text-align: center;
+	min-height: 20px;
+	height: auto;
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	border: solid 1px #ccc;
+	border-radius: 6px;
+	z-index: 1;
+	padding: 5px;
+	background-color: #E2E2FD;
+    -webkit-box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.75);
+    box-shadow: 0px 0px 1px 0px rgba(50, 50, 50, 0.75);
+}

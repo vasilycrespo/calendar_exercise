@@ -100,7 +100,6 @@ app.controller("calendarCtrl", function($scope, $http){
 		});
 		$scope.findHoliday();
 	};
-
 	$scope.findHoliday = function(){
 		if($scope.startDate.getFullYear() === 2008){
 			$http({
@@ -108,13 +107,10 @@ app.controller("calendarCtrl", function($scope, $http){
 			  url: 'http://holidayapi.com/v1/holidays?country='+$scope.inputCountry+'&year=2008'
 			}).then(function successCallback(response) {
 			   if(response){
-			   	 console.log(response.data.holidays);
-
 				$.map($scope.calendars, function(data, i) {
 					$.map(data.calendar, function(days, k) {
 						if(days.date !== null){
 							var dateformated = $scope.holidayapiFormatDate(days.date);
-							//console.log(dateformated)
 							$.map(response.data.holidays, function(holiday, j) {
 								if(j === dateformated){
 									$scope.calendars[i].calendar[k].class = "holiday";
@@ -124,7 +120,6 @@ app.controller("calendarCtrl", function($scope, $http){
 						};
 					});
 				});
-				console.log($scope.calendars)
 			   }
 			}, function errorCallback(response) {
 			   alert("An error ocurred when conecting to the holidayapi, maybe the provided country code is wrong or not supported");
@@ -136,6 +131,17 @@ app.controller("calendarCtrl", function($scope, $http){
 		    newdate = date.getFullYear() +'-'+ month +'-'+ date.getDate();
 		return newdate;
 	};
+	$scope.hoverDay = function(event,day){
+		if(day.holiday){
+			$scope.showHolidays = day.holiday;
+			var mouseX = event.clientX + document.body.scrollLeft + 10, 
+				mouseY = event.clientY + document.body.scrollTop + 10;
+			$(".holidaybox").css({"left": mouseX, "top": mouseY });
+		};
+	};
+	$scope.clearDay = function(){
+		$scope.showHolidays = null;
+	}
 });
 Date.prototype.addDays = function(days) {
     this.setDate(this.getDate()+parseInt(days));

@@ -8,7 +8,14 @@
   <body  ng-app="myCalendar" ng-controller="calendarCtrl">
   	
 
-<div class="container">
+  <div class="holidaybox" ng-show="showHolidays">
+    <ul>
+      <li  ng-repeat="day in showHolidays">{{day.name}}</li>
+    </ul>
+  </div>
+
+  <div class="container">
+
     <div class="center">
       <div class="form">
         <input ng-model="inputDate" type="text" placeholder="mm/dd/yyyy" ></input>
@@ -31,7 +38,7 @@
           {{ data.title | date:'MMMM yyyy' }}
         </div>
         <div class="days">
-          <div class="wd {{ day.class}} " ng-repeat="day in data.calendar">
+          <div class="wd {{ day.class}} " ng-repeat="day in data.calendar" ng-mousemove="hoverDay($event,day)"  ng-mouseleave="clearDay()">
             <span ng-if="day.date">{{ day.date | date:'dd' }}</span>
           </div>
           <div style="clear: both;"></div>
